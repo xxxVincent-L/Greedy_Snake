@@ -3,6 +3,7 @@ import pygame
 import sys
 import random
 from pygame.locals import *
+import pygame
 
 pygame.init()  # 初试化pygame
 
@@ -16,6 +17,12 @@ game_surface = pygame.display.set_mode((600, 400))  # 设置pygame游戏框大�
 pygame.display.set_caption("贪吃蛇")  # 设置游戏标题
 # 初始化游戏界面内使用的字体
 font = pygame.font.SysFont("SIMYOU.TTF", 40)
+
+# 添加背景音乐
+file = r'F:/Pycharm/Snakes/bgm.wav'  # 音乐的路径
+pygame.mixer.init()  # 初始化
+track = pygame.mixer.music.load(file)  # 加载音乐文件
+pygame.mixer.music.play()  # 开始播放音乐流
 
 
 # 给自动运行的蛇改变方向
