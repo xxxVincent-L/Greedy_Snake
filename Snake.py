@@ -43,7 +43,6 @@ def new_head_position(head_position, direction):
         head_position[0] += 20
     return head_position
 
-
 def main():
     head_position = [100, 100]  # 蛇的初始位置
     food_position = [200, 100]  # 食物的位置
@@ -56,8 +55,9 @@ def main():
         empty_position.remove(head_position)
 
     direction = "Right"  # 蛇的初始朝向
-    EVENT_time = pygame.USEREVENT + 1  # 设置时延
-    pygame.time.set_timer(EVENT_time, 400)
+    EVENT_TIME = pygame.USEREVENT + 1  # 设置时延
+    speed_time = 400
+    pygame.time.set_timer(EVENT_TIME, speed_time)
     while True:
         game_surface.fill(black_colour)  # 背景填充为黑色
         for i in range(len(snake_position)):  # 用循环来画整个蛇
@@ -70,8 +70,14 @@ def main():
             if event.type == pygame.QUIT:  # 如果是退出键则退出游戏
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
-                direction = head_direction(event.key, direction)
-            elif event.type == EVENT_time:
+                if event.key == 32:
+                    speed_time = (speed_time - 100) % 400
+                    pygame.time.set_timer(EVENT_TIME, speed_time)
+                else:
+                    direction = head_direction(event.key, direction)
+
+
+            elif event.type == EVENT_TIME:
                 head_position = new_head_position(head_position, direction)  # 蛇的位置不断变化
                 snake_position.insert(0, [head_position[0], head_position[1]])  # 蛇头永远在列表最开始，蛇尾在列表最尾
 
@@ -91,12 +97,16 @@ def main():
 
             # 增加死亡判断功能
             """
-            if head_position[0] < 0 or head_position[0] > 600 \
-                    or head_position[1] < 0 or head_position[1] > 400:
-                sys.exit()  # 到边界就退出
+        if head_position[0] < 0 or head_position[0] > 600 \
+                or head_position[1] < 0 or head_position[1] > 400:
+            sys.exit()  # 到边界就退出
+
+        for i in snake_position[1:]:  # 当蛇头碰到蛇身时，直接退出游戏（利用一个切片
+            if head_position[0] == i[0] and \
+                    head_position[1] == i[1]:
+                sys.exit()
 
         pygame.display.update()
 
 
 main()
-# test for the github
