@@ -19,7 +19,7 @@ pygame.display.set_caption("贪吃蛇")  # 设置游戏标题
 font = pygame.font.SysFont("SIMYOU.TTF", 40)
 
 # 添加背景音乐
-file = r'F:/Pycharm/Snakes/bgm.wav'  # 音乐的路径
+file = r'bgm.wav'  # 音乐的路径
 pygame.mixer.init()  # 初始化
 track = pygame.mixer.music.load(file)  # 加载音乐文件
 pygame.mixer.music.play()  # 开始播放音乐流
@@ -157,4 +157,3 @@ def main():
 
 
 main()
-
